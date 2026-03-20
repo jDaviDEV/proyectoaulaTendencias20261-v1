@@ -4,9 +4,9 @@
 
 Se procede con la ejecucion de los comandos: <br>
 ```
-pip install django <br>
-pip install djangorestframework <br>
-pip install drf-yasg <br>
+pip install django
+pip install djangorestframework
+pip install drf-yasg
 pip install markdown
 ```
 
