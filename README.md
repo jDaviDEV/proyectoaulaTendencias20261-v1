@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # GRUPO 4: Gestion de ventas y facturacion
 
 
@@ -101,3 +102,6 @@ el servidor con el comando:
 
 Para acceder a la documentacion visite el endopint *[http://127.0.0.1:8000/swagger/](http://127.0.0.1:8000/swagger/)*
 cuando inicialice el servidor en la máquina local
+=======
+
+>>>>>>> d8135ff17a9b6e3d74fc0b35fe9cbf61971e4a58
