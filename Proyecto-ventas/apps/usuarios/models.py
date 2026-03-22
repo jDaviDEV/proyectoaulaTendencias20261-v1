@@ -12,7 +12,8 @@ class Usuario(AbstractUser):
     rol = models.CharField(
         max_length=20,
         choices=Rol.choices,
-        default=Rol.VENDEDOR
+        blank=False,
+        null=False
     )
  
     def save(self, *args, **kwargs):
