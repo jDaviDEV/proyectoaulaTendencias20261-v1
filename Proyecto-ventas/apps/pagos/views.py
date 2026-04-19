@@ -34,6 +34,20 @@ class PagoViewSet(viewsets.ModelViewSet):
         with transaction.atomic():
             factura = Factura.objects.select_for_update().get(id=factura_id)
 
+            
+            if factura.estado == Factura.Estado.ANULADA:
+                return Response(
+                    {'detail': 'No se pueden registrar pagos en facturas anuladas'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+           
+            if factura.estado == Factura.Estado.PAGADA:
+                return Response(
+                    {'detail': 'La factura ya se encuentra pagada'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
             try:
                 factura.aplicar_abono(monto)
             except ValidationError as exc:
