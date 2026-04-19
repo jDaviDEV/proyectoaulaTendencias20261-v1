@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,20 +40,21 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_yasg',
-    
+
     'apps.clientes',
     'apps.productos',
     'apps.cotizacion',
-<<<<<<< Updated upstream
-    'apps.usuarios'
-=======
     'apps.usuarios',
     'apps.facturacion',
     'apps.pagos'
->>>>>>> Stashed changes
 ]
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

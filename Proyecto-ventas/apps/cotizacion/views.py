@@ -1,14 +1,19 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from .models import Cotizacion
 from .serializer import CotizacionSerializer
 from apps.usuarios.permissions import EsVendedorOAdmin
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
- 
- 
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from apps.facturacion.models import Factura
+from datetime import timedelta
+from django.utils import timezone
+
+
 class CotizacionViewSet(viewsets.ModelViewSet):
- 
+
     queryset = Cotizacion.objects.all()
     serializer_class = CotizacionSerializer
     authentication_classes = [JWTAuthentication]
