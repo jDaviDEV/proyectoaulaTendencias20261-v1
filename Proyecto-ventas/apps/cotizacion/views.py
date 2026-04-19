@@ -11,5 +11,46 @@ class CotizacionViewSet(viewsets.ModelViewSet):
  
     queryset = Cotizacion.objects.all()
     serializer_class = CotizacionSerializer
+<<<<<<< Updated upstream
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated, EsVendedorOAdmin]
+=======
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, EsVendedorOAdmin]
+
+    
+    @action(detail=True, methods=['post'])
+    def convertir_a_factura(self, request, pk=None):
+        cotizacion = self.get_object()
+
+        
+        if cotizacion.estado in ['borrador', 'rechazada', 'vencida']:
+            return Response(
+                {"error": "No se puede convertir esta cotización"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        
+        if hasattr(cotizacion, 'factura'):
+            return Response(
+                {"error": "La cotización ya fue convertida en factura"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        
+        factura = Factura.objects.create(
+            cotizacion=cotizacion,
+            cliente=cotizacion.cliente,
+            subtotal=cotizacion.subtotal,
+            iva=cotizacion.iva,
+            total=cotizacion.total,
+            saldo_pendiente=cotizacion.total,
+            fecha_vencimiento=timezone.now().date() + timedelta(days=30),
+            estado=Factura.Estado.PENDIENTE
+        )
+
+        return Response({
+            "message": "Factura creada correctamente",
+            "numero": factura.numero
+        }, status=status.HTTP_201_CREATED)
+>>>>>>> Stashed changes
