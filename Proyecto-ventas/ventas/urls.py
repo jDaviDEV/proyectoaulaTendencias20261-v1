@@ -19,11 +19,15 @@ from django.urls import path, include
 
 from rest_framework import permissions
 from rest_framework.routers import DefaultRouter
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 from apps.clientes.views import ClienteViewSet
 from apps.productos.views import ProductoViewSet
 from apps.usuarios.views import UsuarioViewSet
 from apps.cotizacion.views import CotizacionViewSet
 from apps.autenticacion.views import LoginView
+from rest_framework_simplejwt.views import TokenRefreshView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from apps.facturacion.views import FacturaViewSet
@@ -51,12 +55,20 @@ router.register(r'factura', viewset=FacturaViewSet, basename='factura')
 router.register(r'pago', viewset=PagoViewSet, basename='pago')
 router.register(r'usuario', viewset = UsuarioViewSet, basename = 'usuario')
 
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def health_check(request):
+    return Response({"ok": True, "message": "API conectada correctamente"})
+
+
 urlpatterns = [
-    
+    path('v1/health/', health_check, name='health-check'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('admin/', admin.site.urls),
     path('v1/login/', LoginView.as_view(), name='login'),
+    path('v1/login/refresh/', TokenRefreshView.as_view(), name='token-refresh'),
     path('v1/', include(router.urls))
 
 ]
