@@ -11,10 +11,6 @@ class CotizacionViewSet(viewsets.ModelViewSet):
  
     queryset = Cotizacion.objects.all()
     serializer_class = CotizacionSerializer
-<<<<<<< Updated upstream
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated, EsVendedorOAdmin]
-=======
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated, EsVendedorOAdmin]
 
@@ -53,4 +49,3 @@ class CotizacionViewSet(viewsets.ModelViewSet):
             "message": "Factura creada correctamente",
             "numero": factura.numero
         }, status=status.HTTP_201_CREATED)
->>>>>>> Stashed changes
