@@ -26,11 +26,8 @@ from apps.cotizacion.views import CotizacionViewSet
 from apps.autenticacion.views import LoginView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-<<<<<<< Updated upstream
-=======
 from apps.facturacion.views import FacturaViewSet
 from apps.pagos.views import PagoViewSet
->>>>>>> Stashed changes
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -50,11 +47,8 @@ router = DefaultRouter()
 router.register(r'cliente', viewset = ClienteViewSet, basename = 'cliente')
 router.register(r'producto', viewset = ProductoViewSet, basename = 'producto')
 router.register(r'cotizacion', viewset = CotizacionViewSet, basename = 'cotizacion')
-<<<<<<< Updated upstream
-=======
 router.register(r'factura', viewset=FacturaViewSet, basename='factura')
 router.register(r'pago', viewset=PagoViewSet, basename='pago')
->>>>>>> Stashed changes
 router.register(r'usuario', viewset = UsuarioViewSet, basename = 'usuario')
 
 urlpatterns = [
