@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'apps.productos',
     'apps.cotizacion',
     'apps.usuarios',
-    'apps.facturacion'
+    'apps.facturacion',
+    'apps.pagos'
 ]
 
 AUTH_USER_MODEL = 'usuarios.Usuario'

@@ -41,9 +41,13 @@ class CotizacionViewSet(viewsets.ModelViewSet):
         
         factura = Factura.objects.create(
             cotizacion=cotizacion,
+            cliente=cotizacion.cliente,
+            subtotal=cotizacion.subtotal,
+            iva=cotizacion.iva,
             total=cotizacion.total,
             saldo_pendiente=cotizacion.total,
-            fecha_vencimiento=timezone.now().date() + timedelta(days=30)
+            fecha_vencimiento=timezone.now().date() + timedelta(days=30),
+            estado=Factura.Estado.PENDIENTE
         )
 
         return Response({

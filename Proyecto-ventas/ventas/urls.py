@@ -27,6 +27,7 @@ from apps.autenticacion.views import LoginView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from apps.facturacion.views import FacturaViewSet
+from apps.pagos.views import PagoViewSet
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -47,6 +48,7 @@ router.register(r'cliente', viewset = ClienteViewSet, basename = 'cliente')
 router.register(r'producto', viewset = ProductoViewSet, basename = 'producto')
 router.register(r'cotizacion', viewset = CotizacionViewSet, basename = 'cotizacion')
 router.register(r'factura', viewset=FacturaViewSet, basename='factura')
+router.register(r'pago', viewset=PagoViewSet, basename='pago')
 router.register(r'usuario', viewset = UsuarioViewSet, basename = 'usuario')
 
 urlpatterns = [
@@ -56,5 +58,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('v1/login/', LoginView.as_view(), name='login'),
     path('v1/', include(router.urls))
-    
+
 ]

@@ -53,6 +53,7 @@ class FacturaViewSet(viewsets.ModelViewSet):
             subtotal=cotizacion.subtotal,
             iva=cotizacion.iva,
             total=cotizacion.total,
+            saldo_pendiente=cotizacion.total,
             fecha_vencimiento=timezone.now().date() + timedelta(days=15),
             estado=Factura.Estado.PENDIENTE
         )
@@ -70,14 +71,6 @@ class FacturaViewSet(viewsets.ModelViewSet):
     def anular(self, request, pk=None):
 
         factura = self.get_object()
-
-        user = request.user
-
-        if not hasattr(user, 'rol') or user.rol not in ['admin', 'contador']:
-            return Response(
-                {"detail": "No tienes permisos para anular facturas"},
-                status=status.HTTP_403_FORBIDDEN
-            )
 
         if factura.estado != Factura.Estado.PENDIENTE:
             return Response(

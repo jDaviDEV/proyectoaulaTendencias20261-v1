@@ -11,7 +11,7 @@ class FacturaAdmin(admin.ModelAdmin):
         'fecha_emision',
         'estado',
         'total',
-        #'saldo_pendiente'
+        'saldo_pendiente'
     )
 
     list_filter = (
