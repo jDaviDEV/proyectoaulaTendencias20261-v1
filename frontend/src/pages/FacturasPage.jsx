@@ -7,6 +7,7 @@ function FacturasPage() {
       service={facturaApi}
       title="Facturas"
       emptyTableMessage="No hay facturas registradas."
+      hideCreateButton = {true}
     />
   );
 }
