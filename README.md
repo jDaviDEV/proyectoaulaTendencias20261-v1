@@ -116,6 +116,9 @@ Ha sido construido usando React + Vite
 
 por defecto la aplicacion queda alojada en el puerto: http://localhost:5173
 
+>NOTA: en la vista del login, si aun no has creado un super usuario, haslo en la terminal con: python manage.py createsuperuser
+>con ese usuario y contraseña te puedes logear
+
 ## Flujo funcional implementado
 
 1. LoginPage prueba conexion con GET /v1/health/.
