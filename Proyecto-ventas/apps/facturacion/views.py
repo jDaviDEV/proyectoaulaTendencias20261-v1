@@ -1,13 +1,10 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-
 from datetime import timedelta
 from django.utils import timezone
-
 from .models import Factura
 from .serializer import (
     FacturaSerializer,
@@ -53,6 +50,7 @@ class FacturaViewSet(viewsets.ModelViewSet):
             subtotal=cotizacion.subtotal,
             iva=cotizacion.iva,
             total=cotizacion.total,
+            saldo_pendiente=cotizacion.total,
             fecha_vencimiento=timezone.now().date() + timedelta(days=15),
             estado=Factura.Estado.PENDIENTE
         )
@@ -71,17 +69,17 @@ class FacturaViewSet(viewsets.ModelViewSet):
 
         factura = self.get_object()
 
-        user = request.user
-
-        if not hasattr(user, 'rol') or user.rol not in ['admin', 'contador']:
+       
+        if factura.pagos.exists():
             return Response(
-                {"detail": "No tienes permisos para anular facturas"},
-                status=status.HTTP_403_FORBIDDEN
+                {"detail": "No se puede anular la factura porque tiene pagos registrados"},
+                status=status.HTTP_400_BAD_REQUEST
             )
 
-        if factura.estado != Factura.Estado.PENDIENTE:
+       
+        if factura.estado == Factura.Estado.ANULADA:
             return Response(
-                {"detail": "Solo se pueden anular facturas pendientes"},
+                {"detail": "La factura ya se encuentra anulada"},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
@@ -90,7 +88,13 @@ class FacturaViewSet(viewsets.ModelViewSet):
 
         factura.estado = Factura.Estado.ANULADA
         factura.motivo_anulacion = serializer.validated_data['motivo']
-        factura.save()
+        factura.fecha_anulacion = timezone.now()
+
+        factura.save(update_fields=[
+            'estado',
+            'motivo_anulacion',
+            'fecha_anulacion'
+        ])
 
         return Response(
             {"detail": "Factura anulada correctamente"},
