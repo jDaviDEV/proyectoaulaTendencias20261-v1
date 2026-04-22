@@ -10,11 +10,13 @@ function Navbar({ onLogout }) {
   return (
     <header className="app-navbar">
       <div className="app-navbar__brand">
-      <img 
-       src={logo} 
-       className="app-navbar__logo" 
-      />
-        <span>Panel de ventas</span>
+        <div className="app-navbar__brand-center">
+          <img src={logo} alt="Logo empresa" className="app-navbar__logo" />
+          <div className="app-navbar__brand-text">
+            <span className="app-navbar__brand-title">Gestión de inventario</span>
+            <span className="app-navbar__brand-subtitle">J.X IMPORTACIONES</span>
+          </div>
+        </div>
       </div>
 
       <nav className="app-navbar__links" aria-label="Principal">

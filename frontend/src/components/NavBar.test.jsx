@@ -12,7 +12,7 @@ it("renderiza el navbar", () => {
     </MemoryRouter>
   );
 
-  expect(screen.getByText("Panel de ventas")).toBeInTheDocument();
+  expect(screen.getByText("Gestión de inventario")).toBeInTheDocument();
 });
 
 it("renderiza los links de navegación", () => {

@@ -200,10 +200,9 @@ function DashboardPage() {
   return (
     <div className="page dashboard">
       <header className="page__header">
-        <h1 className="page__title">Panel comercial</h1>
+        <h1 className="page__title">Datos comerciales</h1>
         <p className="page__subtitle">
-          Visión general de ventas, cobros y operaciones. Datos en vivo desde la
-          API.
+          Visión general de tu negocio. Consulta métricas clave, actividad reciente y el estado de tus operaciones
         </p>
       </header>
 

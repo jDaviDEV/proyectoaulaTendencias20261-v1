@@ -83,5 +83,14 @@ export const cotizacionApi = {
   },
 };
 
-export const facturaApi = createCrudService("/factura/");
+const facturaCrud = createCrudService("/factura/");
+
+/** CRUD + acción de conversión desde cotización (backend facturación). */
+export const facturaApi = {
+  ...facturaCrud,
+  async convertirDesdeCotizacion(cotizacion_id) {
+    const { data } = await api.post("/factura/convertir/", { cotizacion_id });
+    return data;
+  },
+};
 export const pagoApi = createCrudService("/pago/");
