@@ -5,7 +5,9 @@
   "config": { "maxLambdaSize": "15mb", "runtime": "python3.14.3" }
   }],
   "routes": [
-    "src": "/(.*)",
-    "dest": "Proyecto-ventas/ventas/wsgi.py"
+    {
+      "src": "/(.*)",
+      "dest": "Proyecto-ventas/ventas/wsgi.py"
+    }
   ]
 }
