@@ -1,0 +1,12 @@
+"builds": [{
+  "src": "ventas/wsgi.py",
+  "use": "@vercel/python",
+  "config": {"maxLambdaSize": "15mb", "runtime": "python3.14.3"}
+}],
+
+"routes": [
+  {
+    "src": "/(.*)",
+    "dest": "ventas/wsgi.py"
+  }
+]
